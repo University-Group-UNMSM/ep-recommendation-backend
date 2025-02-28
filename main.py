@@ -20,9 +20,9 @@ matriz_recomendaciones_long = pd.read_pickle("matriz_recomendaciones_long.pkl")
 @app.get("/recomendaciones/{item_id}")
 async def hacer_recomendacion(item_id: int, n: int = 3):
     # Verifica que el item exista en la matriz
-    if item_id in matriz_recomendaciones_long['id1'].unique():
+    if item_id in matriz_recomendaciones_long['id1_project'].unique():
         # Filtra donde 'id1' sea igual al item proporcionado
-        recomendaciones = matriz_recomendaciones_long[matriz_recomendaciones_long['id1'] == item_id]
+        recomendaciones = matriz_recomendaciones_long[matriz_recomendaciones_long['id1_project'] == item_id]
         
         # Ordena por similitud de manera descendente y selecciona los primeros n resultados
         recomendaciones = recomendaciones.sort_values(by='similitud', ascending=False).head(n)

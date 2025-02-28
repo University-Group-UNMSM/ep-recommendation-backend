@@ -4,18 +4,18 @@ import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 
 # IMPORTACIÓN DE DATOS
-df = pd.read_csv("bbdd_ratings.csv")
+df = pd.read_csv("MOCK_DATA.csv")
 df.dropna(subset=["image"], inplace=True)  # Elimina NaN en columna image desde el principio
-df.rename(columns={'review/score': 'review'}, inplace=True)  # Renombrar review/score
-df['review'] = df['review'].astype(int)  # Cambiar el tipo de la columna review
+df.rename(columns={'ratin': 'rating'}, inplace=True)  # Renombrar review/score
+df['rating'] = df['rating'].astype(int)  # Cambiar el tipo de la columna review
 
 # PREPARACIÓN DE DATOS
 # Verificación de valores de review y visualización de los primeros datos
-print(df['review'].value_counts().sort_index())
+print(df['rating'].value_counts().sort_index())
 print(df.head())
 
 # Creamos una matriz item-usuario solo con los datos necesarios
-iu = df.pivot_table(index='id_project', columns='user_id', values='review', fill_value=0)
+iu = df.pivot_table(index='id_project', columns='id_user', values='rating', fill_value=0)
 
 # Conservar información de imagen para cada Id
 images = df[['id_project', 'image']].drop_duplicates().set_index('id_project')
